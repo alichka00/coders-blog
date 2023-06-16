@@ -1,49 +1,57 @@
-import axios from "axios";
-export const URL = "http://localhost:3001";
+import {
+  BaseQueryFn,
+  FetchArgs,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+} from "@reduxjs/toolkit/query/react";
+import { LocalStorage } from "utils/localStorage";
+import { logout } from "store/auth";
 
-export const api = axios.create({
-  withCredentials: true,
-  baseURL: URL,
-});
-
-api.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${JSON.parse(
-    localStorage.getItem("accessToken") || ""
-  )}`;
-  return config;
-});
-
-api.interceptors.response.use(
-  (config) => {
-    return config;
-  },
-  async (error) => {
-    const originalRequest = error.config;
-    if (
-      error.response.status == 401 &&
-      error.config &&
-      !error.config._isRetry
-    ) {
-      originalRequest._isRetry = true;
-      try {
-        const response = await axios({
-          method: "POST",
-          url: `${URL}/auth/refresh`,
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem("refreshToken") || ""
-            )}`,
-          },
-        });
-        localStorage.setItem(
-          "accessToken",
-          JSON.stringify(response.data.data.accessToken)
-        );
-        return api.request(originalRequest);
-      } catch (e) {
-        console.log("Unauthorized");
-      }
+export const baseQuery = fetchBaseQuery({
+  baseUrl: `${import.meta.env.VITE_SERVER_API}`,
+  credentials: "include",
+  prepareHeaders: (headers) => {
+    const accessToken = LocalStorage.getAccessToken();
+    if (accessToken) {
+      headers.set("authorization", `Bearer ${accessToken}`);
     }
-    throw error;
+    return headers;
+  },
+});
+
+export const baseQueryWithReAuth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions);
+
+  if (result.error && result.error.status === 401) {
+    const refreshToken = LocalStorage.getRefreshToken();
+    const refreshResult = await fetch(
+      `${import.meta.env.VITE_SERVER_API}/auth/refresh`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      }
+    );
+
+    const response = await refreshResult.json();
+
+    if (response.data) {
+      const accessToken = response.data.accessToken;
+      const refreshToken = response.data.refreshToken;
+      console.log("refreshToken", refreshToken);
+
+      LocalStorage.setAccessToken(accessToken);
+      LocalStorage.setRefreshToken(refreshToken);
+
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      api.dispatch(logout());
+    }
   }
-);
+  return result;
+};

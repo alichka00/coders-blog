@@ -11,6 +11,6 @@ export default createGlobalStyle`
   body{
     font-family: Raleway, sans-serif;
     color: #000;
-    background: #e1dfdf;
+    background: #fffafa;
   }
 `;

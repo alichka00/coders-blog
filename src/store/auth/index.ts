@@ -1,17 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, checkAuth } from "../thunks";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { I_AuthResponse } from "models/AuthResponse";
+import { I_Response } from "models/responses";
+import { LocalStorage } from "utils/localStorage";
 
 interface I_AuthState {
   isAuth: boolean;
-  isLoading: boolean;
-  email: string;
+  email: string | undefined;
 }
 
 export const initialState: I_AuthState = {
   isAuth: false,
-  isLoading: false,
   email: "",
 };
 
@@ -19,50 +17,25 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    login(state, action: PayloadAction<I_Response>) {
+      if (action.payload.data) {
+        state.isAuth = true;
+        state.email = action.payload.data.admin.email;
+        if (action.payload.data.accessToken) {
+          LocalStorage.setAccessToken(action.payload.data.accessToken);
+        }
+        if (action.payload.data.refreshToken) {
+          LocalStorage.setRefreshToken(action.payload.data.refreshToken);
+        }
+      }
+    },
     logout(state) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
+      LocalStorage.removeAccessToken();
+      LocalStorage.removeRefreshToken();
       state.isAuth = false;
       state.email = "";
     },
-    getAdmin(state, action: PayloadAction<I_AuthResponse>) {
-      state.email = action.payload.admin.email;
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(login.pending, (state) => {
-      state.isAuth = false;
-      state.isLoading = true;
-    });
-    builder.addCase(
-      login.fulfilled,
-      (state, action: PayloadAction<I_AuthResponse>) => {
-        state.isAuth = true;
-        state.isLoading = false;
-        state.email = action.payload.admin.email;
-      }
-    );
-    builder.addCase(login.rejected, (state) => {
-      state.isAuth = false;
-      state.isLoading = false;
-    });
-    builder.addCase(checkAuth.pending, (state) => {
-      state.isAuth = false;
-      state.isLoading = true;
-    });
-    builder.addCase(
-      checkAuth.fulfilled,
-      (state, action: PayloadAction<I_AuthResponse>) => {
-        state.isAuth = true;
-        state.isLoading = false;
-        state.email = action.payload.admin.email;
-      }
-    );
-    builder.addCase(checkAuth.rejected, (state) => {
-      state.isAuth = false;
-      state.isLoading = false;
-    });
   },
 });
 export default authSlice.reducer;
-export const { logout, getAdmin } = authSlice.actions;
+export const { logout, login } = authSlice.actions;
