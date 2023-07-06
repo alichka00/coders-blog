@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Layout = styled.div`
   display: flex;
@@ -7,8 +7,8 @@ export const Layout = styled.div`
   justify-content: center;
 
   height: 100vh;
-`;
+`
 
 export const AuthForm = styled.div`
   width: 320px;
-`;
+`

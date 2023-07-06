@@ -1,21 +1,20 @@
-import { Auth } from "layouts/Auth";
-import { useAppSelector } from "store";
-import { Outlet } from "react-router-dom";
-import { Header } from "components/Header";
-import * as S from "pages/styles";
+import { Outlet } from 'react-router-dom'
+
+import { Auth } from 'layouts/Auth'
+import { Dashboard } from 'layouts/Dashboard'
+import { useAppSelector } from 'store'
 
 export const ProtectedRoute = () => {
-  const { isAuth } = useAppSelector((state) => state.authSlice);
+  const { isAuth } = useAppSelector((state) => state.authSlice)
 
   if (isAuth) {
     return (
       <>
-        <Header />
-        <S.Container>
+        <Dashboard>
           <Outlet />
-        </S.Container>
+        </Dashboard>
       </>
-    );
+    )
   }
-  return <Auth />;
-};
+  return <Auth />
+}

@@ -1,17 +1,25 @@
-import { MenuProps } from "antd";
+import { MenuProps } from 'antd'
+
+import { E_Routes } from 'models/routes'
+
+export const headerTitles: Record<E_Routes, string> = {
+  [E_Routes.users]: 'Користувачі',
+  [E_Routes.admins]: 'Адміністратори',
+  [E_Routes.articles]: 'Статті',
+}
 
 interface I_ProfileMenu {
-  onLogout: () => void;
+  onLogout: () => void
 }
 
 export const profileMenu = ({ onLogout }: I_ProfileMenu): MenuProps => ({
   items: [
     {
-      key: "0",
-      label: "Вийти",
+      key: '0',
+      label: 'Вийти',
     },
   ],
   onClick: () => {
-    onLogout();
+    onLogout()
   },
-});
+})

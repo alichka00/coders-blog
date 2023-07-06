@@ -1,13 +1,22 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export const Header = styled.header`
+export const HeaderWrapper = styled.header`
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 20px;
-  font-size: 22px;
+  padding: 16px;
+  font-size: 18px;
   color: #fffc;
   background: #23282d;
-`;
-export const WrapAuth = styled.div`
+  box-shadow: 0 4px 4px -5px #333;
+`
+
+export const HeaderLeftSection = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`
+
+export const HeaderRightSection = styled(HeaderLeftSection)`
   cursor: pointer;
-`;
+`

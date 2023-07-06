@@ -1,7 +1,12 @@
+import { Divider } from 'antd'
+
+import { Breadcrumbs } from 'components/Breadcrumbs'
+
 export const Admins = () => {
   return (
     <div>
-      <h1>Admins</h1>
+      <Breadcrumbs items={[{ title: 'Адміністратори' }]} />
+      <Divider />
     </div>
-  );
-};
+  )
+}

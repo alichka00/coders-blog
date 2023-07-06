@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
   * {
@@ -12,5 +12,16 @@ export default createGlobalStyle`
     font-family: Raleway, sans-serif;
     color: #000;
     background: #fffafa;
+    margin: 0;
+    padding: 0;
   }
-`;
+
+  li{
+    list-style-type: none;
+  }
+
+  a {
+    color: #fffc;
+    text-decoration: none;
+  }
+`

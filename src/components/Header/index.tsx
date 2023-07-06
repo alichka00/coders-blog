@@ -1,30 +1,33 @@
-import * as S from "./styles";
-import { useAppDispatch, useAppSelector } from "store";
-import { logout } from "store/auth";
-import { Dropdown } from "antd";
-import { profileMenu } from "./data";
+import { Dropdown } from 'antd'
+
+import { profileMenu, headerTitles } from './data'
+import * as S from './styles'
+
+import { useCurrentPath } from 'hooks/useCurrentPath'
+import { useAppDispatch, useAppSelector } from 'store'
+import { logout } from 'store/auth'
 
 export const Header = () => {
-  const { isAuth, email } = useAppSelector((state) => state.authSlice);
-  const dispatch = useAppDispatch();
+  const { isAuth, email } = useAppSelector((state) => state.authSlice)
+  const dispatch = useAppDispatch()
+  const currentPath = useCurrentPath()
 
   const handleLogout = () => {
-    dispatch(logout());
-  };
+    dispatch(logout())
+  }
 
   return (
-    <S.Header>
-      <p>Header</p>
-      <S.WrapAuth>
-        {isAuth && (
-          <Dropdown
-            menu={profileMenu({ onLogout: handleLogout })}
-            trigger={["click"]}
-          >
-            <p>{email}</p>
-          </Dropdown>
-        )}
-      </S.WrapAuth>
-    </S.Header>
-  );
-};
+    <S.HeaderWrapper>
+      <S.HeaderLeftSection>
+        <span>{headerTitles[currentPath]}</span>
+      </S.HeaderLeftSection>
+      {isAuth && (
+        <Dropdown menu={profileMenu({ onLogout: handleLogout })} trigger={['click']}>
+          <S.HeaderRightSection>
+            <span>{email}</span>
+          </S.HeaderRightSection>
+        </Dropdown>
+      )}
+    </S.HeaderWrapper>
+  )
+}
