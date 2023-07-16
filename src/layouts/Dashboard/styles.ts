@@ -5,16 +5,18 @@ export const Layout = styled.div`
   min-height: 100vh;
 `
 
-interface LayoutWrapperProps {
+interface I_LayoutWrapperProps {
   isSidebarCollapsed: boolean
+  isMobile: boolean
 }
-export const LayoutWrapper = styled.div<LayoutWrapperProps>`
+export const LayoutWrapper = styled.div<I_LayoutWrapperProps>`
   display: flex;
   flex: auto;
   flex-direction: column;
   width: 100%;
   transition: padding-left ease 0.5s;
-  padding-left: ${({ isSidebarCollapsed }) => (isSidebarCollapsed ? 88 : 240)}px;
+  padding-left: ${({ isMobile, isSidebarCollapsed }) =>
+    isMobile ? 0 : isSidebarCollapsed ? 88 : 240}px;
 `
 
 export const LayoutContainer = styled.div`

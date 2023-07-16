@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, App as AntApp } from 'antd'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
@@ -21,8 +21,10 @@ ReactDOM.render(
     >
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Global />
-          <App />
+          <AntApp>
+            <Global />
+            <App />
+          </AntApp>
         </BrowserRouter>
       </ThemeProvider>
     </ConfigProvider>

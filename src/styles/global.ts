@@ -13,7 +13,7 @@ export default createGlobalStyle`
     color: #000;
     background: #fffafa;
     margin: 0;
-    padding: 0;
+    padding: 0;    
   }
 
   li{

@@ -4,7 +4,7 @@ interface I_SidebarProps {
   isCollapsed: boolean
 }
 
-export const SidebarWrapper = styled.div<I_SidebarProps>`
+export const SidebarWrapper = styled.div<I_SidebarProps & { $isMobile: boolean; $isOpen: boolean }>`
   z-index: 100;
   left: 0;
   top: 0;
@@ -20,6 +20,13 @@ export const SidebarWrapper = styled.div<I_SidebarProps>`
   box-shadow: 3px 0 6px -5px #333;
   width: ${({ isCollapsed }) => (isCollapsed ? 88 : 240)}px;
   transition: width ease 0.5s, transform ease 0.5s;
+
+  @media (max-width: 720px) {
+    ${({ $isOpen }) =>
+      css`
+        transform: translateX(${$isOpen ? 0 : -240}px);
+      `}
+  }
 `
 
 export const SidebarInner = styled.div`
@@ -27,6 +34,7 @@ export const SidebarInner = styled.div`
   flex-direction: column;
   gap: 16px;
   justify-content: center;
+  font-size: 16px;
 `
 
 export const SidebarHeader = styled.div`
@@ -52,7 +60,6 @@ export const SidebarCollapse = styled.span<I_SidebarProps>`
   justify-content: center;
   width: 56px;
   height: 50px;
-  font-size: 18px;
   border-radius: 8px;
   transition: color ease 0.5s, background-color ease 0.5s, transform ease 0.5s;
 
@@ -86,7 +93,7 @@ export const SidebarMenuItem = styled.li<{ isActive: boolean }>`
   width: 100%;
   min-width: 56px;
   height: 50px;
-  padding: 16px;
+  padding: 12px 16px;
   border-radius: 8px;
   transition: color ease 0.5s, background-color ease 0.5s;
 
@@ -124,4 +131,13 @@ export const SidebarMenuItemText = styled.span<I_SidebarProps>`
   width: 190px;
   transition: transform ease 0.5s;
   transform: translateX(${({ isCollapsed }) => (isCollapsed ? -240 : 0)}px);
+`
+export const SidebarOverlay = styled.div`
+  position: fixed;
+  z-index: 90;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.45);
 `

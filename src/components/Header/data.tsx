@@ -1,3 +1,4 @@
+import { LogoutOutlined } from '@ant-design/icons'
 import { MenuProps } from 'antd'
 
 import { E_Routes } from 'models/routes'
@@ -17,6 +18,7 @@ export const profileMenu = ({ onLogout }: I_ProfileMenu): MenuProps => ({
     {
       key: '0',
       label: 'Вийти',
+      icon: <LogoutOutlined />,
     },
   ],
   onClick: () => {

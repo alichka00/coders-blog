@@ -4,12 +4,11 @@ import { useEffect } from 'react'
 
 import * as S from './styles'
 
-import { I_LoginData } from 'store/auth/models/loginData'
-import { I_Response } from 'store/auth/models/responses'
-
 import { useAppDispatch } from 'store'
 import { login } from 'store/auth'
 import { useSignInMutation } from 'store/auth/authApi'
+import { I_LoginData } from 'store/auth/models/loginData'
+import { I_Response } from 'store/auth/models/responses'
 
 export const Auth = () => {
   const [form] = Form.useForm<I_LoginData>()

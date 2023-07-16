@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 
 interface I_InitialState {
   isCollapsed: boolean
+  isOpen: boolean
 }
 
 const initialState: I_InitialState = {
   isCollapsed: false,
+  isOpen: false,
 }
 
 export const sidebarSlice = createSlice({
@@ -15,7 +17,13 @@ export const sidebarSlice = createSlice({
     toggleSidebarCollapse(state) {
       state.isCollapsed = !state.isCollapsed
     },
+    openSidebar: (state) => {
+      state.isOpen = true
+    },
+    closeSidebar: (state) => {
+      state.isOpen = false
+    },
   },
 })
 
-export const { toggleSidebarCollapse } = sidebarSlice.actions
+export const { toggleSidebarCollapse, openSidebar, closeSidebar } = sidebarSlice.actions

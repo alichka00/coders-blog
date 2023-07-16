@@ -13,14 +13,15 @@
     "lint:sc": "stylelint src/"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/styled-components": "^5.1.26",
     "ant-design": "^1.0.0",
+    "ant-design-icons": "^1.3.3",
     "antd": "^5.6.1",
     "framer-motion": "^10.12.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.8.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.12.1",
     "styled-components": "^6.0.0-rc.1",

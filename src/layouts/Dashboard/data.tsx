@@ -1,6 +1,5 @@
+import { ContainerOutlined, TeamOutlined, LockOutlined } from '@ant-design/icons'
 import { ReactNode } from 'react'
-import { FiUsers } from 'react-icons/fi'
-import { RiAdminLine, RiArticleLine } from 'react-icons/ri'
 
 export interface I_MenuItem {
   key: string
@@ -13,19 +12,19 @@ export const menuItems: I_MenuItem[] = [
   {
     key: 'articles',
     label: 'Статті',
-    icon: <RiArticleLine />,
+    icon: <ContainerOutlined />,
     to: '/articles',
   },
   {
     key: 'admins',
     label: 'Адміністратори',
-    icon: <RiAdminLine />,
+    icon: <LockOutlined />,
     to: '/admins',
   },
   {
     key: 'users',
     label: 'Користувачі',
-    icon: <FiUsers />,
+    icon: <TeamOutlined />,
     to: '/users',
   },
 ]
