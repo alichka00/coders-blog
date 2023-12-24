@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { I_Response } from 'store/auth/models/responses'
-import { LocalStorage } from 'utils/localStorage'
+import { I_Response } from 'services/auth/models/responses'
+
+import { LocalStorage } from 'utils/helpers/localStorage'
 
 interface I_AuthState {
   isAuth: boolean

@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
 import { AppRoutes } from 'routes'
+import { useCheckAuthQuery } from 'services/auth'
+import { I_Response } from 'services/auth/models/responses'
 import { useAppDispatch } from 'store'
 import { login } from 'store/auth'
-import { useCheckAuthQuery } from 'store/auth/authApi'
-import { I_Response } from 'store/auth/models/responses'
 
 function App() {
   const dispatch = useAppDispatch()

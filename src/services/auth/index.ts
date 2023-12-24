@@ -1,8 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
+import { I_LoginData } from './models/loginData'
+import { I_AuthResponse } from './models/responses'
+
 import { baseQueryWithReAuth } from 'services/AuthService'
-import { I_LoginData } from 'store/auth/models/loginData'
-import { I_AuthResponse } from 'store/auth/models/responses'
 
 export const authApi = createApi({
   reducerPath: 'authApi',

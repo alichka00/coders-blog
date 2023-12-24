@@ -5,23 +5,28 @@ interface I_SidebarProps {
 }
 
 export const SidebarWrapper = styled.div<I_SidebarProps & { $isMobile: boolean; $isOpen: boolean }>`
+  position: fixed;
   z-index: 100;
-  left: 0;
   top: 0;
+  left: 0;
+
   overflow: hidden;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   justify-content: space-between;
-  position: fixed;
-  height: 100vh;
-  background-color: #23282d;
-  color: #fffc;
-  box-shadow: 3px 0 6px -5px #333;
+
   width: ${({ isCollapsed }) => (isCollapsed ? 88 : 240)}px;
+  height: 100vh;
+
+  color: #fffc;
+
+  background-color: #23282d;
+  box-shadow: 3px 0 6px -5px #333;
+
   transition: width ease 0.5s, transform ease 0.5s;
 
-  @media (max-width: 720px) {
+  @media (width <= 720px) {
     ${({ $isOpen }) =>
       css`
         transform: translateX(${$isOpen ? 0 : -240}px);
@@ -34,6 +39,7 @@ export const SidebarInner = styled.div`
   flex-direction: column;
   gap: 16px;
   justify-content: center;
+
   font-size: 16px;
 `
 
@@ -46,21 +52,28 @@ export const SidebarHeader = styled.div`
 
 export const SidebarHeaderTitle = styled.span<I_SidebarProps>`
   position: absolute;
+  transform: translateX(${({ isCollapsed }) => (isCollapsed ? -240 : 0)}px);
+
   width: 156px;
+
   font-weight: 600;
   text-transform: uppercase;
+
   transition: transform ease 0.5s;
-  transform: translateX(${({ isCollapsed }) => (isCollapsed ? -240 : 0)}px);
 `
 
 export const SidebarCollapse = styled.span<I_SidebarProps>`
   cursor: pointer;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 56px;
   height: 50px;
+
   border-radius: 8px;
+
   transition: color ease 0.5s, background-color ease 0.5s, transform ease 0.5s;
 
   &:hover {
@@ -83,30 +96,34 @@ export const SidebarMenu = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
   height: calc(100vh - 80px);
   padding-inline: 16px;
 `
 
 export const SidebarMenuItem = styled.li<{ isActive: boolean }>`
   position: relative;
+
   user-select: none;
+
   width: 100%;
   min-width: 56px;
   height: 50px;
   padding: 12px 16px;
+
   border-radius: 8px;
+
   transition: color ease 0.5s, background-color ease 0.5s;
 
   ${({ isActive }) =>
     isActive
       ? css`
-          background-color: ${({ theme }) => theme.palette.primary};
           color: #fff;
+          background-color: ${({ theme }) => theme.palette.primary};
         `
       : css`
           &:hover {
             color: #fff;
-
             background-color: ${({ theme }) => theme.palette.layoutTriggerBackground};
           }
         `}
@@ -114,8 +131,8 @@ export const SidebarMenuItem = styled.li<{ isActive: boolean }>`
 
 export const SidebarMenuItemIcon = styled.span<I_SidebarProps>`
   position: absolute;
-  transition: transform ease 0.5s;
   transform: translateX(${({ isCollapsed }) => (isCollapsed ? 4 : 0)}px);
+  transition: transform ease 0.5s;
 `
 
 export const SidebarMenuItemTextOverflow = styled.div`
@@ -127,17 +144,17 @@ export const SidebarMenuItemTextOverflow = styled.div`
 
 export const SidebarMenuItemText = styled.span<I_SidebarProps>`
   position: absolute;
-  overflow: hidden;
-  width: 190px;
-  transition: transform ease 0.5s;
   transform: translateX(${({ isCollapsed }) => (isCollapsed ? -240 : 0)}px);
+
+  overflow: hidden;
+
+  width: 190px;
+
+  transition: transform ease 0.5s;
 `
 export const SidebarOverlay = styled.div`
   position: fixed;
   z-index: 90;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.45);
+  inset: 0;
+  background-color: rgb(0 0 0 / 45%);
 `

@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit/query/react'
 
 import { logout } from 'store/auth'
-import { LocalStorage } from 'utils/localStorage'
+import { LocalStorage } from 'utils/helpers/localStorage'
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: `${import.meta.env.VITE_SERVER_API}`,

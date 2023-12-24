@@ -4,9 +4,12 @@ export const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 16px;
+
   font-size: 18px;
   color: #fffc;
+
   background: #23282d;
   box-shadow: 0 4px 4px -5px #333;
 
