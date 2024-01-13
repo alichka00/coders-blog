@@ -31,11 +31,11 @@ export const Sidebar = ({ items, selectedItem }: I_SidebarProps) => {
 
   return (
     <>
-      <S.SidebarWrapper $isOpen={isOpen} $isMobile={isMobile} isCollapsed={isCollapsed}>
+      <S.SidebarWrapper $isOpen={isOpen} $isMobile={isMobile} $isCollapsed={isCollapsed}>
         <S.SidebarInner>
           <S.SidebarHeader>
-            <S.SidebarHeaderTitle isCollapsed={isCollapsed}>Coders blog</S.SidebarHeaderTitle>
-            <S.SidebarCollapse isCollapsed={isCollapsed} onClick={handleToggleSidebar}>
+            <S.SidebarHeaderTitle $isCollapsed={isCollapsed}>Coders blog</S.SidebarHeaderTitle>
+            <S.SidebarCollapse $isCollapsed={isCollapsed} onClick={handleToggleSidebar}>
               <MenuOutlined />
             </S.SidebarCollapse>
           </S.SidebarHeader>
@@ -43,12 +43,12 @@ export const Sidebar = ({ items, selectedItem }: I_SidebarProps) => {
             {items.map((item) => (
               <Link to={item.to} key={item.key}>
                 <Tooltip placement='right' title={isCollapsed && item.label}>
-                  <S.SidebarMenuItem isActive={item.key === selectedItem}>
-                    <S.SidebarMenuItemIcon isCollapsed={isCollapsed}>
+                  <S.SidebarMenuItem $isActive={item.key === selectedItem}>
+                    <S.SidebarMenuItemIcon $isCollapsed={isCollapsed}>
                       {item.icon}
                     </S.SidebarMenuItemIcon>
                     <S.SidebarMenuItemTextOverflow>
-                      <S.SidebarMenuItemText isCollapsed={isCollapsed}>
+                      <S.SidebarMenuItemText $isCollapsed={isCollapsed}>
                         {item.label}
                       </S.SidebarMenuItemText>
                     </S.SidebarMenuItemTextOverflow>

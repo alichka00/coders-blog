@@ -7,6 +7,8 @@ export const headerTitles: Record<E_Routes, string> = {
   [E_Routes.users]: 'Користувачі',
   [E_Routes.admins]: 'Адміністратори',
   [E_Routes.articles]: 'Статті',
+  [E_Routes.viewArticle]: 'Перегляд статті',
+  [E_Routes.updateArticle]: 'Редагування статті',
 }
 
 interface I_ProfileMenu {

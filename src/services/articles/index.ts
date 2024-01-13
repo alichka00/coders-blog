@@ -2,14 +2,19 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { I_ArticlesData } from './models/articleData'
 
-import { I_Response } from 'services/articles/models/responses'
+import {
+  I_ResponseArticle,
+  I_ResponseArticles,
+  T_ArticleId,
+} from 'services/articles/models/responses'
 import { baseQuery } from 'services/AuthService'
 
 export const articlesApi = createApi({
   reducerPath: 'articlesApi',
   baseQuery: baseQuery,
+  tagTypes: ['articles', 'article'],
   endpoints: (builder) => ({
-    getArticles: builder.query<I_Response, I_ArticlesData>({
+    getArticles: builder.query<I_ResponseArticles, I_ArticlesData>({
       query: ({ page, limit, sort, filter }) => {
         let url = `articles?page=${page}&limit=${limit}`
 
@@ -29,8 +34,58 @@ export const articlesApi = createApi({
           url,
         }
       },
+      providesTags: ['articles'],
+    }),
+    getArticle: builder.query<I_ResponseArticle, T_ArticleId>({
+      query: (id) => ({
+        url: `articles/${id}`,
+      }),
+      providesTags: ['articles', 'article'],
+    }),
+    updateArticle: builder.mutation({
+      query(payload) {
+        return {
+          url: `articles/${payload.id}`,
+          method: 'PUT',
+          body: payload,
+        }
+      },
+    }),
+    deleteArticle: builder.mutation({
+      query(id) {
+        return {
+          url: `articles/${id}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ['articles'],
+    }),
+    deleteComment: builder.mutation({
+      query(id) {
+        return {
+          url: `comments/${id}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ['articles', 'article'],
+    }),
+    deleteReaction: builder.mutation({
+      query({ reactionId, authorId }) {
+        return {
+          url: `reactions/${reactionId}/${authorId}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ['articles', 'article'],
     }),
   }),
 })
 
-export const { useGetArticlesQuery } = articlesApi
+export const {
+  useGetArticlesQuery,
+  useGetArticleQuery,
+  useUpdateArticleMutation,
+  useDeleteArticleMutation,
+  useDeleteCommentMutation,
+  useDeleteReactionMutation,
+} = articlesApi

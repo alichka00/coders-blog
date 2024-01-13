@@ -13,28 +13,8 @@ import { T_ArticleDataType } from 'services/articles/models/responses'
 import type { InputRef } from 'antd'
 import type { TablePaginationConfig } from 'antd/es/table'
 
-interface TableParams {
-  pagination?: TablePaginationConfig
-  sortField?: string
-  sortOrder?: string
-  filters?: Record<string, FilterValue>
-}
-
 export const ArticleTable = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  // const [tableParams, setTableParams] = useState<TableParams>({
-  //   pagination: {
-  //     current: Number(searchParams.get('page')) || 1,
-  //     pageSize: Number(searchParams.get('limit')) || 10,
-  //     total: 100,
-  //   },
-  // })
-  // const [filteredInfo, setFilteredInfo] = useState<Record<string, FilterValue | null>>({})
-  // const [sortedInfo, setSortedInfo] = useState<SorterResult<DataType>>({
-  //   order: searchParams.get('sort')
-  //     ? JSON.parse(decodeURIComponent(searchParams.get('sort'))).order
-  //     : 'ascend',
-  // })
   const { data, isLoading } = useGetArticlesQuery({
     page: searchParams.get('page') || 1,
     limit: searchParams.get('limit') || 10,
@@ -65,11 +45,6 @@ export const ArticleTable = () => {
     filters: Record<string, FilterValue | null>,
     sorter: SorterResult<T_ArticleDataType> | SorterResult<T_ArticleDataType>[],
   ) => {
-    // setTableParams({
-    //   pagination,
-    // })
-    // setSortedInfo(sorter as SorterResult<DataType>)
-    // setFilteredInfo(filters)
     const params = new URLSearchParams()
     params.append('page', JSON.stringify(pagination.current))
     params.append('limit', JSON.stringify(pagination.pageSize))
@@ -126,6 +101,7 @@ export const ArticleTable = () => {
         pageSize: Number(searchParams.get('limit')) || 10,
         total: data?.info.total,
       }}
+      scroll={{ x: 'max-content' }}
     />
   )
 }

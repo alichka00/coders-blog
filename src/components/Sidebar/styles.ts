@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 interface I_SidebarProps {
-  isCollapsed: boolean
+  $isCollapsed: boolean
 }
 
 export const SidebarWrapper = styled.div<I_SidebarProps & { $isMobile: boolean; $isOpen: boolean }>`
@@ -16,7 +16,7 @@ export const SidebarWrapper = styled.div<I_SidebarProps & { $isMobile: boolean; 
   flex-shrink: 0;
   justify-content: space-between;
 
-  width: ${({ isCollapsed }) => (isCollapsed ? 88 : 240)}px;
+  width: ${({ $isCollapsed }) => ($isCollapsed ? 88 : 240)}px;
   height: 100vh;
 
   color: #fffc;
@@ -52,7 +52,7 @@ export const SidebarHeader = styled.div`
 
 export const SidebarHeaderTitle = styled.span<I_SidebarProps>`
   position: absolute;
-  transform: translateX(${({ isCollapsed }) => (isCollapsed ? -240 : 0)}px);
+  transform: translateX(${({ $isCollapsed }) => ($isCollapsed ? -240 : 0)}px);
 
   width: 156px;
 
@@ -80,8 +80,8 @@ export const SidebarCollapse = styled.span<I_SidebarProps>`
     background-color: ${({ theme }) => theme.palette.layoutTriggerBackground};
   }
 
-  ${({ isCollapsed }) =>
-    isCollapsed
+  ${({ $isCollapsed }) =>
+    $isCollapsed
       ? css`
           transform: translateX(0);
         `
@@ -101,7 +101,7 @@ export const SidebarMenu = styled.ul`
   padding-inline: 16px;
 `
 
-export const SidebarMenuItem = styled.li<{ isActive: boolean }>`
+export const SidebarMenuItem = styled.li<{ $isActive: boolean }>`
   position: relative;
 
   user-select: none;
@@ -115,8 +115,8 @@ export const SidebarMenuItem = styled.li<{ isActive: boolean }>`
 
   transition: color ease 0.5s, background-color ease 0.5s;
 
-  ${({ isActive }) =>
-    isActive
+  ${({ $isActive }) =>
+    $isActive
       ? css`
           color: #fff;
           background-color: ${({ theme }) => theme.palette.primary};
@@ -131,7 +131,7 @@ export const SidebarMenuItem = styled.li<{ isActive: boolean }>`
 
 export const SidebarMenuItemIcon = styled.span<I_SidebarProps>`
   position: absolute;
-  transform: translateX(${({ isCollapsed }) => (isCollapsed ? 4 : 0)}px);
+  transform: translateX(${({ $isCollapsed }) => ($isCollapsed ? 4 : 0)}px);
   transition: transform ease 0.5s;
 `
 
@@ -144,7 +144,7 @@ export const SidebarMenuItemTextOverflow = styled.div`
 
 export const SidebarMenuItemText = styled.span<I_SidebarProps>`
   position: absolute;
-  transform: translateX(${({ isCollapsed }) => (isCollapsed ? -240 : 0)}px);
+  transform: translateX(${({ $isCollapsed }) => ($isCollapsed ? -240 : 0)}px);
 
   overflow: hidden;
 

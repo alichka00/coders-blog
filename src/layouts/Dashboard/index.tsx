@@ -23,7 +23,7 @@ export const Dashboard = ({ children }: I_DashboardLayout) => {
   return (
     <S.Layout>
       <Sidebar items={menuItems} selectedItem={location.pathname.split('/')[1]} />
-      <S.LayoutWrapper isSidebarCollapsed={isCollapsed} isMobile={isMobile}>
+      <S.LayoutWrapper $isSidebarCollapsed={isCollapsed} $isMobile={isMobile}>
         <Header />
         <S.LayoutContainer>
           <S.LayoutContent>{children}</S.LayoutContent>
