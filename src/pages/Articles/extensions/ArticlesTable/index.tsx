@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router-dom'
 import { getColumns } from './data'
 
 import { Loader } from 'components/Loader'
-import { useGetArticlesQuery } from 'services/articles'
+import { articlesApi } from 'services/articles'
 import { T_ArticleDataType } from 'services/articles/models/responses'
 
 import type { InputRef } from 'antd'
@@ -15,7 +15,7 @@ import type { TablePaginationConfig } from 'antd/es/table'
 
 export const ArticleTable = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const { data, isLoading } = useGetArticlesQuery({
+  const { data, isLoading } = articlesApi.useGetArticlesQuery({
     page: searchParams.get('page') || 1,
     limit: searchParams.get('limit') || 10,
     sort: searchParams.getAll('sort'),

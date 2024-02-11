@@ -5,4 +5,7 @@ export interface I_Tag {
   icon: string
   createdAt: Date
   updatedAt: Date
+  _count: {
+    articles: number
+  }
 }

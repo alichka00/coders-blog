@@ -11,14 +11,14 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     signIn: builder.mutation<I_AuthResponse, I_LoginData>({
       query: (payload) => ({
-        url: '/auth/signin',
+        url: 'auth/signin',
         method: 'POST',
         body: payload,
       }),
     }),
     checkAuth: builder.query<I_AuthResponse, void>({
       query: () => ({
-        url: '/auth/check',
+        url: 'auth/check',
       }),
     }),
   }),

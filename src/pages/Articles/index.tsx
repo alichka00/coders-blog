@@ -1,4 +1,6 @@
-import { Divider } from 'antd'
+import { Button, Divider } from 'antd'
+
+import { Link } from 'react-router-dom'
 
 import { ArticleTable } from './extensions/ArticlesTable'
 
@@ -10,7 +12,14 @@ export const Articles = () => {
     <div>
       <Breadcrumbs items={[{ title: 'Статті' }]} />
       <Divider />
+
       <C.WrapperPage>
+        <Link to='/articles/create'>
+          <Button type='primary' size='large'>
+            Створити статтю
+          </Button>
+        </Link>
+        <C.Brick />
         <ArticleTable />
       </C.WrapperPage>
     </div>

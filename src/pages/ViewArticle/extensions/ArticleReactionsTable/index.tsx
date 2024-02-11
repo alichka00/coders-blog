@@ -1,5 +1,5 @@
 import { CheckOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
-import { Col, Modal, Table, notification } from 'antd'
+import { Col, Table, App } from 'antd'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -7,16 +7,17 @@ import { getColumns } from './data'
 
 import { ErrorMessage } from 'components/ErrorMessage'
 import { Loader } from 'components/Loader'
-import { useDeleteReactionMutation, useGetArticleQuery } from 'services/articles'
+import { articlesApi } from 'services/articles'
 import { formatToDataSource } from 'utils/helpers/table'
 
 export const ArticleReactionsTable = () => {
   const param = useParams()
-  const { data, isLoading } = useGetArticleQuery(Number(param.id))
-  const [deleteReaction, { isSuccess }] = useDeleteReactionMutation()
+  const { data, isLoading } = articlesApi.useGetArticleQuery(Number(param.id))
+  const [deleteReaction, { isSuccess }] = articlesApi.useDeleteReactionMutation()
+  const { notification, modal } = App.useApp()
 
   const handleDelete = (reactionId: number, authorId: number) => {
-    Modal.confirm({
+    modal.confirm({
       title: 'Видалення',
       icon: <ExclamationCircleOutlined />,
       content: 'Реакцію буде видалено',
@@ -36,7 +37,7 @@ export const ArticleReactionsTable = () => {
         icon: <CheckOutlined style={{ color: '#52c41a' }} />,
       })
     }
-  }, [isSuccess])
+  }, [isSuccess, notification])
 
   if (isLoading) {
     return <Loader />

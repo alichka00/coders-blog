@@ -3,8 +3,7 @@ import { Divider } from 'antd'
 import { useParams } from 'react-router-dom'
 
 import { Breadcrumbs } from 'components/Breadcrumbs'
-
-import { useUpdateArticleMutation } from 'services/articles'
+import { FormUpdateArticle } from 'features/FormArticle/extensions/FormUpdateArticle'
 
 export const UpdateArticle = () => {
   const param = useParams()
@@ -19,7 +18,7 @@ export const UpdateArticle = () => {
         ]}
       />
       <Divider />
-      <h4>—ฅ/ᐠ. ̫ .ᐟ\ฅ — MEOW</h4>
+      <FormUpdateArticle />
     </div>
   )
 }

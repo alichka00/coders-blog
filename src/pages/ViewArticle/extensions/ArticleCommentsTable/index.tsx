@@ -1,5 +1,5 @@
 import { CheckOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
-import { Modal, Table, notification } from 'antd'
+import { App, Table } from 'antd'
 
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
@@ -8,17 +8,18 @@ import { getColumns } from './data'
 
 import { ErrorMessage } from 'components/ErrorMessage'
 import { Loader } from 'components/Loader'
-import { useDeleteCommentMutation, useGetArticleQuery } from 'services/articles'
+import { articlesApi } from 'services/articles'
 import { formatArticleCommentsToDataSource } from 'utils/helpers/table'
 
 export const ArticleCommentsTable = () => {
   const param = useParams()
 
-  const { data, isLoading } = useGetArticleQuery(Number(param.id))
-  const [deleteComment, { isSuccess }] = useDeleteCommentMutation()
+  const { data, isLoading } = articlesApi.useGetArticleQuery(Number(param.id))
+  const [deleteComment, { isSuccess }] = articlesApi.useDeleteCommentMutation()
+  const { modal, notification } = App.useApp()
 
   const handleDelete = (commentId: number) => {
-    Modal.confirm({
+    modal.confirm({
       title: 'Видалення',
       icon: <ExclamationCircleOutlined />,
       content: 'Коментар буде видалено',
@@ -38,7 +39,7 @@ export const ArticleCommentsTable = () => {
         icon: <CheckOutlined style={{ color: '#52c41a' }} />,
       })
     }
-  }, [isSuccess])
+  }, [isSuccess, notification])
 
   if (isLoading) {
     return <Loader />

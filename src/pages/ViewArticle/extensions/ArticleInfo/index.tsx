@@ -7,7 +7,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import MDEditor from '@uiw/react-md-editor'
-import { Button, Col, Modal, Row, Space, Statistic, Tag, Typography, notification } from 'antd'
+import { Button, Col, Row, Statistic, Tag, Typography, App, Flex } from 'antd'
 
 import { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -16,7 +16,7 @@ import { ErrorMessage } from 'components/ErrorMessage'
 import { Loader } from 'components/Loader'
 import { tagStatusText } from 'components/TagStatus'
 
-import { useDeleteArticleMutation, useGetArticleQuery } from 'services/articles'
+import { articlesApi } from 'services/articles'
 import * as C from 'styles/components'
 import { formatDate } from 'utils/helpers/date'
 
@@ -24,11 +24,12 @@ export const ArticleInfo = () => {
   const param = useParams()
   const navigate = useNavigate()
 
-  const { data, isLoading } = useGetArticleQuery(Number(param.id))
-  const [deleteArticle, { isSuccess }] = useDeleteArticleMutation()
+  const { data, isLoading } = articlesApi.useGetArticleQuery(Number(param.id))
+  const [deleteArticle, { isSuccess }] = articlesApi.useDeleteArticleMutation()
+  const { notification, modal } = App.useApp()
 
   const handleDelete = () => {
-    Modal.confirm({
+    modal.confirm({
       title: 'Видалення',
       icon: <ExclamationCircleOutlined />,
       content: 'Статтю буде видалено',
@@ -49,7 +50,7 @@ export const ArticleInfo = () => {
       })
       navigate(`/articles`)
     }
-  }, [isSuccess, navigate])
+  }, [isSuccess, navigate, notification])
 
   if (isLoading) {
     return <Loader />
@@ -121,7 +122,7 @@ export const ArticleInfo = () => {
           </Col>
         </Row>
         <C.Brick />
-        <Space>
+        <Flex gap='small'>
           <Link to='update'>
             <Button type='primary' size='large'>
               Редагувати
@@ -130,7 +131,7 @@ export const ArticleInfo = () => {
           <Button type='primary' size='large' onClick={handleDelete}>
             Видалити
           </Button>
-        </Space>
+        </Flex>
       </>
     )
   }

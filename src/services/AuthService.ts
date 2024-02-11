@@ -5,16 +5,18 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react'
 
+import { T_Tokens } from 'models/shared/tokens'
+
 import { logout } from 'store/auth'
 import { LocalStorage } from 'utils/helpers/localStorage'
 
-export const baseQuery = fetchBaseQuery({
+const baseQuery = fetchBaseQuery({
   baseUrl: `${import.meta.env.VITE_SERVER_API}`,
   credentials: 'include',
   prepareHeaders: (headers) => {
     const accessToken = LocalStorage.getAccessToken()
     if (accessToken) {
-      headers.set('authorization', `Bearer ${accessToken}`)
+      headers.set('Authorization', `Bearer ${accessToken}`)
     }
     return headers
   },
@@ -29,7 +31,7 @@ export const baseQueryWithReAuth: BaseQueryFn<
 
   if (result.error && result.error.status === 401) {
     const refreshToken = LocalStorage.getRefreshToken()
-    const refreshResult = await fetch(`${import.meta.env.VITE_SERVER_API}/auth/refresh`, {
+    const refreshResult = await fetch(`http://localhost:3001/auth/refresh`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${refreshToken}`,
@@ -39,9 +41,8 @@ export const baseQueryWithReAuth: BaseQueryFn<
     const response = await refreshResult.json()
 
     if (response.data) {
-      const accessToken = response.data.accessToken
-      const refreshToken = response.data.refreshToken
-      console.log('refreshToken', refreshToken)
+      const accessToken = (response?.data as T_Tokens).accessToken
+      const refreshToken = (response?.data as T_Tokens).refreshToken
 
       LocalStorage.setAccessToken(accessToken)
       LocalStorage.setRefreshToken(refreshToken)

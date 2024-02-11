@@ -1,4 +1,5 @@
 import { ConfigProvider, App as AntApp } from 'antd'
+import ukUA from 'antd/es/locale/uk_UA'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
@@ -18,6 +19,7 @@ ReactDOM.render(
           colorPrimary: '#563D7C',
         },
       }}
+      locale={ukUA}
     >
       <ThemeProvider theme={theme}>
         <BrowserRouter>

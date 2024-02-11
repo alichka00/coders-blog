@@ -7,12 +7,12 @@ import {
   I_ResponseArticles,
   T_ArticleId,
 } from 'services/articles/models/responses'
-import { baseQuery } from 'services/AuthService'
+import { baseQueryWithReAuth } from 'services/AuthService'
 
 export const articlesApi = createApi({
   reducerPath: 'articlesApi',
-  baseQuery: baseQuery,
-  tagTypes: ['articles', 'article'],
+  baseQuery: baseQueryWithReAuth,
+  tagTypes: ['articles', 'article', 'tags'],
   endpoints: (builder) => ({
     getArticles: builder.query<I_ResponseArticles, I_ArticlesData>({
       query: ({ page, limit, sort, filter }) => {
@@ -38,23 +38,34 @@ export const articlesApi = createApi({
     }),
     getArticle: builder.query<I_ResponseArticle, T_ArticleId>({
       query: (id) => ({
-        url: `articles/${id}`,
+        url: `/articles/${id}`,
       }),
       providesTags: ['articles', 'article'],
+    }),
+    postArticle: builder.mutation({
+      query(payload) {
+        return {
+          url: `/articles`,
+          method: 'POST',
+          body: payload,
+        }
+      },
+      invalidatesTags: ['articles', 'article'],
     }),
     updateArticle: builder.mutation({
       query(payload) {
         return {
-          url: `articles/${payload.id}`,
+          url: `/articles/${payload.id}`,
           method: 'PUT',
           body: payload,
         }
       },
+      invalidatesTags: ['articles', 'article'],
     }),
     deleteArticle: builder.mutation({
       query(id) {
         return {
-          url: `articles/${id}`,
+          url: `/articles/${id}`,
           method: 'DELETE',
         }
       },
@@ -63,7 +74,7 @@ export const articlesApi = createApi({
     deleteComment: builder.mutation({
       query(id) {
         return {
-          url: `comments/${id}`,
+          url: `/comments/${id}`,
           method: 'DELETE',
         }
       },
@@ -72,7 +83,7 @@ export const articlesApi = createApi({
     deleteReaction: builder.mutation({
       query({ reactionId, authorId }) {
         return {
-          url: `reactions/${reactionId}/${authorId}`,
+          url: `/reactions/${reactionId}/${authorId}`,
           method: 'DELETE',
         }
       },
@@ -80,12 +91,3 @@ export const articlesApi = createApi({
     }),
   }),
 })
-
-export const {
-  useGetArticlesQuery,
-  useGetArticleQuery,
-  useUpdateArticleMutation,
-  useDeleteArticleMutation,
-  useDeleteCommentMutation,
-  useDeleteReactionMutation,
-} = articlesApi

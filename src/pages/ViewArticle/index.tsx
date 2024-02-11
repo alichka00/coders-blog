@@ -18,6 +18,7 @@ export const ViewArticle = () => {
           Загальна інформація
         </Divider>
         <ArticleInfo />
+        <C.Brick />
         <Divider orientation='left' orientationMargin='0'>
           Коментарі
         </Divider>

@@ -4,6 +4,7 @@ import { ProtectedRoute } from './ProtectedRoute'
 
 import { Admins } from 'pages/Admins'
 import { Articles } from 'pages/Articles'
+import { CreateArticle } from 'pages/CreateArticle'
 import { UpdateArticle } from 'pages/UpdateArticle'
 import { Users } from 'pages/Users'
 import { ViewArticle } from 'pages/ViewArticle'
@@ -15,6 +16,7 @@ export const AppRoutes = () => {
         <Route path='/articles' element={<Articles />}></Route>
         <Route path='/articles/:id' element={<ViewArticle />}></Route>
         <Route path='/articles/:id/update' element={<UpdateArticle />}></Route>
+        <Route path='/articles/create' element={<CreateArticle />}></Route>
         <Route path='/admins' element={<Admins />}></Route>
         <Route path='/users' element={<Users />}></Route>
       </Route>

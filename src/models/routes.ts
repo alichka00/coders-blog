@@ -4,4 +4,5 @@ export enum E_Routes {
   articles = '/articles',
   viewArticle = '/articles/:id',
   updateArticle = '/articles/:id/update',
+  createArticle = '/articles/create',
 }

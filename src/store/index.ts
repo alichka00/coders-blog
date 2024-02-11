@@ -7,6 +7,7 @@ import { sidebarSlice } from './sidebar'
 import { articlesApi } from '../services/articles'
 
 import { authApi } from 'services/auth'
+import { tagsApi } from 'services/tags'
 
 const store = configureStore({
   reducer: {
@@ -14,9 +15,10 @@ const store = configureStore({
     sidebarSlice: sidebarSlice.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [articlesApi.reducerPath]: articlesApi.reducer,
+    [tagsApi.reducerPath]: tagsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware, articlesApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware, articlesApi.middleware, tagsApi.middleware),
 })
 
 export default store
