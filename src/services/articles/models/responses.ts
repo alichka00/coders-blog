@@ -60,7 +60,3 @@ export type T_ArticleDataType = I_Article & {
 export interface I_ResponseArticle {
   data: I_Article
 }
-
-export interface I_ResponseTags {
-  data: I_Tag[]
-}

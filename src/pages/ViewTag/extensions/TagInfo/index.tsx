@@ -1,36 +1,33 @@
 import { CheckOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
-import MDEditor from '@uiw/react-md-editor'
-import { Button, Col, Row, App, Flex, Card, Descriptions } from 'antd'
+import { Row, Col, Statistic, Flex, Button, App, Descriptions, Card } from 'antd'
 
 import { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { getItems } from './data'
 
-import { ErrorMessage } from 'components/ErrorMessage'
 import { Loader } from 'components/Loader'
 
-import { articlesApi } from 'services/articles'
+import { tagsApi } from 'services/tags'
 import * as C from 'styles/components'
 
-export const ArticleInfo = () => {
+export const TagInfo = () => {
   const param = useParams()
   const navigate = useNavigate()
-
-  const { data, isLoading } = articlesApi.useGetArticleQuery(Number(param.id))
-  const [deleteArticle, { isSuccess }] = articlesApi.useDeleteArticleMutation()
+  const { data: dataTag, isLoading } = tagsApi.useGetTagQuery(Number(param.id))
+  const [deleteTag, { isSuccess }] = tagsApi.useDeleteTagMutation()
   const { notification, modal } = App.useApp()
 
   const handleDelete = () => {
     modal.confirm({
       title: 'Видалення',
       icon: <ExclamationCircleOutlined />,
-      content: 'Статтю буде видалено',
+      content: 'Тег буде видалено',
       okText: 'Видалити',
       cancelText: 'Скасувати',
       maskClosable: true,
       onOk: () => {
-        deleteArticle(Number(param.id))
+        deleteTag(Number(param.id))
       },
     })
   }
@@ -38,10 +35,10 @@ export const ArticleInfo = () => {
   useEffect(() => {
     if (isSuccess) {
       notification.open({
-        message: 'Статтю успішно видалено',
+        message: 'Тег успішно видалено',
         icon: <CheckOutlined style={{ color: '#52c41a' }} />,
       })
-      navigate(`/articles`)
+      navigate(`/tags`)
     }
   }, [isSuccess, navigate, notification])
 
@@ -49,23 +46,36 @@ export const ArticleInfo = () => {
     return <Loader />
   }
 
-  if (data?.data) {
+  if (dataTag?.data) {
     return (
       <>
+        {/* <Row gutter={[16, 4]}>
+          <Col xs={24} lg={12} xl={8}>
+            <Statistic valueStyle={{ fontSize: '18px' }} title='Назва' value={dataTag.data.name} />
+          </Col>
+          <Col xs={24} lg={12} xl={8}>
+            <Statistic
+              title='Іконка'
+              value={dataTag.data.icon}
+              formatter={(value) =>
+                value ? <i style={{ fontSize: 32 }} className={String(value)} /> : '-'
+              }
+            />
+          </Col>
+          <Col xs={24} lg={12} xl={8}>
+            <Statistic
+              valueStyle={{ fontSize: '18px' }}
+              title='Опис'
+              value={dataTag.data.description}
+            />
+          </Col>
+        </Row> */}
         <Card
           title='Загальна інформація'
           bordered={false}
           style={{ boxShadow: '0px 0px 13px #0000000d' }}
         >
-          <Descriptions items={getItems(data.data)} layout='vertical' />
-        </Card>
-        <C.Brick />
-        <Card bordered={false} style={{ boxShadow: '0px 0px 13px #0000000d' }}>
-          <Row>
-            <Col xs={24} xxl={16}>
-              <MDEditor hideToolbar preview='preview' height={800} value={data.data.content} />
-            </Col>
-          </Row>
+          <Descriptions items={getItems(dataTag.data)} layout='vertical' />
         </Card>
         <C.Brick />
         <Flex gap='small'>
@@ -81,5 +91,4 @@ export const ArticleInfo = () => {
       </>
     )
   }
-  return <ErrorMessage />
 }

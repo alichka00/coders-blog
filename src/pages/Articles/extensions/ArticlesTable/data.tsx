@@ -9,7 +9,7 @@ import { E_ArticleStatus, T_ArticleRecord } from 'models/article'
 
 import { I_Tag } from 'models/tags'
 import { T_ArticleDataType } from 'services/articles/models/responses'
-import { formatDate } from 'utils/helpers/date'
+import { formatDate } from 'utils/helpers/formatDate'
 import { I_ColumnSearch, getColumnSearch } from 'utils/tables/columnSearch'
 
 interface I_GetColumns {

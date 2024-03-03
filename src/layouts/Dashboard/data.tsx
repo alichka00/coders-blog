@@ -1,4 +1,4 @@
-import { ContainerOutlined, TeamOutlined, LockOutlined } from '@ant-design/icons'
+import { ContainerOutlined, TeamOutlined, LockOutlined, TagsOutlined } from '@ant-design/icons'
 import { ReactNode } from 'react'
 
 export interface I_MenuItem {
@@ -14,6 +14,12 @@ export const menuItems: I_MenuItem[] = [
     label: 'Статті',
     icon: <ContainerOutlined />,
     to: '/articles',
+  },
+  {
+    key: 'tags',
+    label: 'Теги',
+    icon: <TagsOutlined />,
+    to: '/tags',
   },
   {
     key: 'admins',

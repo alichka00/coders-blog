@@ -1,4 +1,4 @@
-import { Table } from 'antd'
+import { Card, Table } from 'antd'
 
 import { FilterConfirmProps, FilterValue, SorterResult } from 'antd/es/table/interface'
 import { useRef, useState } from 'react'
@@ -90,18 +90,20 @@ export const ArticleTable = () => {
   }
 
   return (
-    <Table
-      columns={getColumns({
-        searchOptions: { searchInput, searchText, handleReset, handleSearch },
-      })}
-      dataSource={dataArticles}
-      onChange={handleTableChange}
-      pagination={{
-        current: Number(searchParams.get('page')) || 1,
-        pageSize: Number(searchParams.get('limit')) || 10,
-        total: data?.info.total,
-      }}
-      scroll={{ x: 'max-content' }}
-    />
+    <Card bordered={false} style={{ boxShadow: '0px 0px 13px #0000000d' }}>
+      <Table
+        columns={getColumns({
+          searchOptions: { searchInput, searchText, handleReset, handleSearch },
+        })}
+        dataSource={dataArticles}
+        onChange={handleTableChange}
+        pagination={{
+          current: Number(searchParams.get('page')) || 1,
+          pageSize: Number(searchParams.get('limit')) || 10,
+          total: data?.info.total,
+        }}
+        scroll={{ x: 'max-content' }}
+      />
+    </Card>
   )
 }

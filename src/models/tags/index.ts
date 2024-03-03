@@ -1,3 +1,5 @@
+import { I_Article } from 'services/articles/models/responses'
+
 export interface I_Tag {
   id: number
   name: string
@@ -5,7 +7,9 @@ export interface I_Tag {
   icon: string
   createdAt: Date
   updatedAt: Date
-  _count: {
-    articles: number
-  }
+  articles?: I_Article[]
+}
+
+export type T_TagRecord = I_Tag & {
+  key: number
 }

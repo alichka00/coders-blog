@@ -1,5 +1,5 @@
 import { CheckOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
-import { App, Table } from 'antd'
+import { App, Card, Table } from 'antd'
 
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
@@ -48,7 +48,14 @@ export const ArticleCommentsTable = () => {
   if (data?.data?.ArticleComment) {
     const dataTable = formatArticleCommentsToDataSource(data?.data?.ArticleComment)
     return (
-      <Table columns={getColumns({ onDelete: handleDelete })} dataSource={dataTable} bordered />
+      <Card title='Коментарі' bordered={false} style={{ boxShadow: '0px 0px 13px #0000000d' }}>
+        <Table
+          columns={getColumns({ onDelete: handleDelete })}
+          dataSource={dataTable}
+          bordered
+          scroll={{ x: 'max-content' }}
+        />
+      </Card>
     )
   }
   return <ErrorMessage />

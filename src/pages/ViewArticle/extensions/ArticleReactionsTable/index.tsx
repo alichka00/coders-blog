@@ -1,5 +1,5 @@
 import { CheckOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
-import { Col, Table, App } from 'antd'
+import { Col, Table, App, Card, Row } from 'antd'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -45,24 +45,26 @@ export const ArticleReactionsTable = () => {
 
   if (data?.data?.ArticleReaction) {
     return (
-      <>
-        {data.data.ArticleReaction.map((item) => {
-          if (item.authors) {
-            const dataTable = formatToDataSource(item.authors)
-            const onDelete = (authorId: number) => {
-              handleDelete(item.id, authorId)
+      <Card bordered={false} style={{ boxShadow: '0px 0px 13px #0000000d' }}>
+        <Row gutter={[16, 4]}>
+          {data.data.ArticleReaction.map((item) => {
+            if (item.authors) {
+              const dataTable = formatToDataSource(item.authors)
+              const onDelete = (authorId: number) => {
+                handleDelete(item.id, authorId)
+              }
+              return (
+                <Col xs={24} lg={12} xl={6} key={item.id}>
+                  <h4>
+                    {item.reaction?.icon} ({item.counter})
+                  </h4>
+                  <Table columns={getColumns({ onDelete })} dataSource={dataTable} bordered />
+                </Col>
+              )
             }
-            return (
-              <Col xs={24} lg={12} xl={6} key={item.id}>
-                <h4>
-                  {item.reaction?.icon} ({item.counter})
-                </h4>
-                <Table columns={getColumns({ onDelete })} dataSource={dataTable} bordered />
-              </Col>
-            )
-          }
-        })}
-      </>
+          })}
+        </Row>
+      </Card>
     )
   }
   return <ErrorMessage />

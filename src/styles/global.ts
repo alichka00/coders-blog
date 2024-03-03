@@ -9,11 +9,13 @@ export default createGlobalStyle`
 
 
   body{
+    margin: 0;
+    padding: 0;
+
     font-family: Raleway, sans-serif;
     color: #000;
-    background: #fffafa;
-    margin: 0;
-    padding: 0;    
+
+    background: #fffafa;    
   }
 
   li{

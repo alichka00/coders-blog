@@ -10,16 +10,13 @@ import { tagsApi } from 'services/tags'
 export const GeneralSection = () => {
   const { notification } = App.useApp()
   const { data: tagsData, isLoading: tagsLoading } = tagsApi.useGetTagsQuery()
-  const [tagCreate, { isSuccess: tagCreateSuccess }] = tagsApi.usePostTagMutation()
+  const [tagCreate, { isSuccess: tagCreateSuccess }] = tagsApi.useCreateTagMutation()
   const [tagValue, setTagValue] = useState('')
 
   const handleTagCreate = () => {
     if (tagsData) {
       tagCreate({
-        id: tagsData.data[tagsData.data.length - 1].id + 1,
         name: tagValue,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       })
     }
     setTagValue('')

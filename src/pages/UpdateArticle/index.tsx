@@ -12,7 +12,7 @@ export const UpdateArticle = () => {
     <div>
       <Breadcrumbs
         items={[
-          { title: 'Статті' },
+          { title: 'Статті', to: '/articles' },
           { title: 'Перегляд статті ', to: `/articles/${param.id}` },
           { title: 'Редагування статті' },
         ]}
