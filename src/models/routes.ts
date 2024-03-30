@@ -9,4 +9,8 @@ export enum E_Routes {
   createTag = '/tags/create',
   updateTag = '/tags/:id/update',
   viewTag = '/tags/:id',
+  viewAdmin = '/admins/:id',
+  createAdmin = '/admins/create',
+  updateAdminEmail = '/admins/:id/update',
+  updateAdminPassword = '/admins/:id/updatePassword',
 }

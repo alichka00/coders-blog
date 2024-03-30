@@ -14,6 +14,10 @@ export const headerTitles: Record<E_Routes, string> = {
   [E_Routes.updateTag]: 'Редагування тегу',
   [E_Routes.createTag]: 'Створення тегу',
   [E_Routes.viewTag]: 'Перегляд тегу',
+  [E_Routes.viewAdmin]: 'Перегляд адміністратора',
+  [E_Routes.createAdmin]: 'Створення адміністратора',
+  [E_Routes.updateAdminEmail]: 'Редагування адміністратора',
+  [E_Routes.updateAdminPassword]: 'Редагування адміністратора',
 }
 
 interface I_ProfileMenu {

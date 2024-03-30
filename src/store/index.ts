@@ -4,7 +4,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { authSlice } from './auth'
 import { sidebarSlice } from './sidebar'
 
-import { articlesApi } from '../services/articles'
+import { adminsApi } from 'services/admins'
+import { articlesApi } from 'services/articles'
 
 import { authApi } from 'services/auth'
 import { tagsApi } from 'services/tags'
@@ -16,9 +17,15 @@ const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [articlesApi.reducerPath]: articlesApi.reducer,
     [tagsApi.reducerPath]: tagsApi.reducer,
+    [adminsApi.reducerPath]: adminsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware, articlesApi.middleware, tagsApi.middleware),
+    getDefaultMiddleware().concat(
+      authApi.middleware,
+      articlesApi.middleware,
+      tagsApi.middleware,
+      adminsApi.middleware,
+    ),
 })
 
 export default store
