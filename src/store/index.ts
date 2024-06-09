@@ -9,6 +9,7 @@ import { articlesApi } from 'services/articles'
 
 import { authApi } from 'services/auth'
 import { tagsApi } from 'services/tags'
+import { usersApi } from 'services/users'
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     [articlesApi.reducerPath]: articlesApi.reducer,
     [tagsApi.reducerPath]: tagsApi.reducer,
     [adminsApi.reducerPath]: adminsApi.reducer,
+    [usersApi.reducerPath]: usersApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -25,6 +27,7 @@ const store = configureStore({
       articlesApi.middleware,
       tagsApi.middleware,
       adminsApi.middleware,
+      usersApi.middleware,
     ),
 })
 

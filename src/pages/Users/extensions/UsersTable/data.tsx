@@ -3,8 +3,7 @@ import { Button, Space, TableColumnsType } from 'antd'
 
 import { Link } from 'react-router-dom'
 
-import { T_AdminRecord } from 'models/admin'
-
+import { T_UserRecord } from 'models/user'
 import { formatDate } from 'utils/helpers/formatDate'
 
 interface I_GetColumnsProps {
@@ -15,8 +14,9 @@ interface I_GetColumnsProps {
 export const getColumns = ({
   handleOpenModal,
   handleDelete,
-}: I_GetColumnsProps): TableColumnsType<T_AdminRecord> => [
+}: I_GetColumnsProps): TableColumnsType<T_UserRecord> => [
   { title: 'ID', dataIndex: 'id', sorter: (a, b) => a.id - b.id },
+  { title: "Ім'я", dataIndex: 'username' },
   { title: 'Пошта', dataIndex: 'email' },
   {
     title: 'Дата створення',
@@ -30,7 +30,7 @@ export const getColumns = ({
     render: (record) => (
       <Space size='middle'>
         <Button icon={<EyeOutlined />} onClick={() => handleOpenModal(record.id)} />
-        <Link to={`/admins/${record.id}/update`}>
+        <Link to={`/users/${record.id}/update`}>
           <Button icon={<EditOutlined />} />
         </Link>
         <Button icon={<DeleteOutlined />} onClick={() => handleDelete(record.id)} />

@@ -7,13 +7,14 @@ import { Articles } from 'pages/Articles'
 import { CreateAdmin } from 'pages/CreateAdmin'
 import { CreateArticle } from 'pages/CreateArticle'
 import { CreateTag } from 'pages/CreateTag'
+import { CreateUser } from 'pages/CreateUser'
 import { Tags } from 'pages/Tags'
 import { UpdateAdminEmail } from 'pages/UpdateAdminEmail'
 import { UpdateAdminPassword } from 'pages/UpdateAdminPassword'
 import { UpdateArticle } from 'pages/UpdateArticle'
 import { UpdateTag } from 'pages/UpdateTag'
+import { UpdateUser } from 'pages/UpdateUser'
 import { Users } from 'pages/Users'
-import { ViewAdmin } from 'pages/ViewAdmin'
 import { ViewArticle } from 'pages/ViewArticle'
 import { ViewTag } from 'pages/ViewTag'
 
@@ -26,11 +27,12 @@ export const AppRoutes = () => {
         <Route path='/articles/:id/update' element={<UpdateArticle />}></Route>
         <Route path='/articles/create' element={<CreateArticle />}></Route>
         <Route path='/admins' element={<Admins />}></Route>
-        <Route path='/admins/:id' element={<ViewAdmin />}></Route>
         <Route path='/admins/:id/update' element={<UpdateAdminEmail />}></Route>
         <Route path='/admins/create' element={<CreateAdmin />}></Route>
         <Route path='/admins/:id/updatePassword' element={<UpdateAdminPassword />}></Route>
         <Route path='/users' element={<Users />}></Route>
+        <Route path='/users/create' element={<CreateUser />}></Route>
+        <Route path='/users/:id/update' element={<UpdateUser />}></Route>
         <Route path='/tags' element={<Tags />}></Route>
         <Route path='/tags/:id' element={<ViewTag />}></Route>
         <Route path='/tags/:id/update' element={<UpdateTag />}></Route>

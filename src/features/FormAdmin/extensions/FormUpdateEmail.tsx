@@ -40,7 +40,7 @@ export const FormUpdateEmail = () => {
         message: 'Пошту успішно оновлено',
         icon: <CheckOutlined style={{ color: '#52C41A' }} />,
       })
-      navigate(`/admins/${param.id}`)
+      navigate(`/admins`)
     }
   }, [updateAdminEmailSuccess, navigate, notification, param.id])
 
@@ -58,7 +58,7 @@ export const FormUpdateEmail = () => {
         </Row>
         <Form.Item>
           <Flex gap='small'>
-            <Link to={`/admins/${param.id}`}>
+            <Link to={`/admins`}>
               <Button type='primary' size='large'>
                 Скасувати
               </Button>

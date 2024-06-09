@@ -1,20 +1,21 @@
 import { ExclamationCircleOutlined, CheckOutlined } from '@ant-design/icons'
-import { App, Card, Table } from 'antd'
+import { Table, App, Card } from 'antd'
 
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { getColumns } from './data'
 
-import { ViewAdminModal } from 'components/Modals/ViewAdminModal'
-import { adminsApi } from 'services/admins'
+import { ViewUserModal } from 'components/Modals/ViewUserModal'
+import { usersApi } from 'services/users'
 
-export const AdminsTable = () => {
-  const { data: adminsData } = adminsApi.useGetAdminsQuery()
+export const UsersTable = () => {
   const navigate = useNavigate()
-  const [isModalAdminOpen, setIsModalAdminOpen] = useState(false)
-  const [modalAdminId, setModalAdminId] = useState<number | null>(null)
-  const [deleteAdmin, { isSuccess }] = adminsApi.useDeleteAdminMutation()
+  const [isModalUserOpen, setIsModalUserOpen] = useState(false)
+  const [modalUserId, setModalUserId] = useState<number | null>(null)
+
+  const { data: usersData } = usersApi.useGetUsersQuery()
+  const [deleteUser, { isSuccess }] = usersApi.useDeleteUserMutation()
   const { notification, modal } = App.useApp()
 
   const handleDelete = (id: number) => {
@@ -26,18 +27,18 @@ export const AdminsTable = () => {
       cancelText: 'Скасувати',
       maskClosable: true,
       onOk: () => {
-        deleteAdmin(id)
+        deleteUser(id)
       },
     })
   }
 
   const handleCloseModal = () => {
-    setIsModalAdminOpen(false)
+    setIsModalUserOpen(false)
   }
 
   const handleOpenModal = (id: number) => {
-    setIsModalAdminOpen(true)
-    setModalAdminId(id || null)
+    setIsModalUserOpen(true)
+    setModalUserId(id || null)
   }
 
   useEffect(() => {
@@ -46,23 +47,18 @@ export const AdminsTable = () => {
         message: 'Користувач успішно видалений',
         icon: <CheckOutlined style={{ color: '#52c41a' }} />,
       })
-      navigate(`/admins`)
+      navigate(`/users`)
     }
   }, [isSuccess, navigate, notification])
 
-  if (adminsData?.data) {
+  if (usersData?.data) {
     return (
       <Card bordered={false} style={{ boxShadow: '0px 0px 13px #0000000d' }}>
         <Table
           columns={getColumns({ handleDelete, handleOpenModal })}
-          dataSource={adminsData.data.map((item) => ({ ...item, key: item.id }))}
+          dataSource={usersData.data.map((item) => ({ ...item, key: item.id }))}
         />
-
-        <ViewAdminModal
-          isOpen={isModalAdminOpen}
-          handleClose={handleCloseModal}
-          id={modalAdminId}
-        />
+        <ViewUserModal isOpen={isModalUserOpen} handleClose={handleCloseModal} id={modalUserId} />
       </Card>
     )
   }

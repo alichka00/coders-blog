@@ -30,7 +30,7 @@ export const FormUpdatePassword = () => {
         message: 'Пароль успішно оновлено',
         icon: <CheckOutlined style={{ color: '#52C41A' }} />,
       })
-      navigate(`/admins/${param.id}`)
+      navigate(`/admins`)
     }
   }, [updateAdminPasswordSuccess, navigate, notification, param.id])
 
@@ -76,7 +76,7 @@ export const FormUpdatePassword = () => {
       </Row>
       <Form.Item>
         <Flex gap='small'>
-          <Link to={`/admins/${param.id}`}>
+          <Link to={`/admins`}>
             <Button type='primary' size='large'>
               Скасувати
             </Button>
